@@ -5,7 +5,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+// import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 import {SourceData} from './source-data-model';
@@ -38,10 +38,8 @@ const SourceCard:React.FC<{data: SourceData}> = ({data}) => {
       <CardHeader title={data.name} />
       <CardMedia className={classes.media} image={getImagePath(data.name)} />
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteBorderIcon
-            onClick={() => console.log("Favorite Icon Clicked!")}
-          />
+        <IconButton aria-label="add to favorites" onClick={() => console.log("Favorite Icon Clicked!")} >
+          <FavoriteBorderIcon/>
         </IconButton>
       </CardActions>
     </Card>
