@@ -11,7 +11,7 @@ interface AuthInfo {
 interface Injections {
   type: string,
   key: string,
-  interpolationKey: string,
+  interpolationKey?: string,
   label: string,
   description: string
 }
@@ -26,7 +26,7 @@ interface Connection {
   type: string,
   baseUrl: string,
   headers: Headers,
-  injections: [Injections],
+  injections: Injections[],
   authInfo: AuthInfo
 }
 
