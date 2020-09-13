@@ -7,26 +7,36 @@ import { SourceData } from './source-data-model';
 
 import sheetData from './googleSheets';
 
-const SourceDashboard:React.FC = () => {
+
+interface Props {
+  isClicked: boolean
+}
+
+const SourceDashboard:React.FC<Props> = ({isClicked}) => {
   const [APIData, setAPIData] = useState<SourceData[]>([]);
   const [favSources, setFavSources] = useState<Array<number>>([]);
 
   const [clickedId, setClickedId] = useState<number>(-1);
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    if(!isClicked) return;
+    setIsLoading(true);
     async function fetch() {
       const data = await getData();
       setAPIData([...data, sheetData]);
+      setIsLoading(false);
     }
     fetch();
-  }, []);
+  }, [isClicked]);
+
+  
 
   useEffect(() => {
     if(clickedId === -1) return;
     const newData = [...APIData];
 
-    const selectedSrc = APIData.findIndex((data) => data.id === clickedId)
-    newData.splice(0, 0, newData.splice(selectedSrc, 1)[0]);
+    const selectedSrcIndex = APIData.findIndex((data) => data.id === clickedId)
+    newData.splice(0, 0, newData.splice(selectedSrcIndex, 1)[0]);
 
     setAPIData(newData);
 
@@ -47,7 +57,7 @@ const SourceDashboard:React.FC = () => {
           ))}
         </div>
       )}
-      {APIData.length === 0 && (
+      {APIData.length === 0 && isLoading && (
         <div><CircularProgress/></div>
       )}
     </div>

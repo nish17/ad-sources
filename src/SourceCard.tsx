@@ -11,7 +11,6 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { SourceData } from './source-data-model';
 
 const getImagePath = (name: string): string => {
-  // console.log('image path:', `${process.env.PUBLIC_URL}/images/${name.toLowerCase().split(" ").join("-")}-logo.png`);
   return `${process.env.PUBLIC_URL}/images/${name.toLowerCase().split(" ").join("-")}-logo.png`;
 };
 
@@ -49,9 +48,9 @@ const SourceCard: React.FC<Props> = ({ data, favSource, isFav, clickedId, addFav
       favSource.splice(index, 1);
     }
     else {
-      clickedId(id);
       addFavSource([...favSource, id]);
     }
+    clickedId(id);
     console.log('fav sources:', favSource);
   }
 
