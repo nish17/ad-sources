@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography, CircularProgress} from '@material-ui/core';
+import { Typography, CircularProgress, TextField } from '@material-ui/core';
 import getData from "./api";
 
 import SourceCard from './SourceCard';
@@ -12,14 +12,17 @@ interface Props {
   isClicked: boolean
 }
 
-const SourceDashboard:React.FC<Props> = ({isClicked}) => {
+const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
   const [APIData, setAPIData] = useState<SourceData[]>([]);
   const [favSources, setFavSources] = useState<Array<number>>([]);
 
   const [clickedId, setClickedId] = useState<number>(-1);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  let tempAPIData: SourceData[] = [];
+
   useEffect(() => {
-    if(!isClicked) return;
+    if (!isClicked) return;
     setIsLoading(true);
     async function fetch() {
       const data = await getData();
@@ -29,10 +32,10 @@ const SourceDashboard:React.FC<Props> = ({isClicked}) => {
     fetch();
   }, [isClicked]);
 
-  
+
 
   useEffect(() => {
-    if(clickedId === -1) return;
+    if (clickedId === -1 || !favSources.includes(clickedId)) return;
     const newData = [...APIData];
 
     const selectedSrcIndex = APIData.findIndex((data) => data.id === clickedId)
@@ -42,23 +45,38 @@ const SourceDashboard:React.FC<Props> = ({isClicked}) => {
 
   }, [clickedId]);
 
+  tempAPIData = APIData.filter((d) => d.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 );
   return (
     <div>
       <Typography gutterBottom variant="h5" component="h2">
         Below is the list of the sources you have connected. Please choose the
         data source you would like to import data from.
       </Typography>
-      {APIData.length > 0 && (
+      {isClicked &&<TextField
+        id="outlined-full-width"
+        label="Search Sources"
+        style={{ margin: 8 }}
+        placeholder="Search..."
+        fullWidth
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        variant="outlined"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />}
+      {tempAPIData.length > 0 && (
         <div>
-          {APIData.map((d, i) => (
+          {tempAPIData.map((d, i) => (
             !favSources.includes(d.id) ?
               <SourceCard key={i} data={d} favSource={favSources} addFavSource={setFavSources} clickedId={setClickedId} isFav /> :
               <SourceCard key={i} data={d} favSource={favSources} addFavSource={setFavSources} clickedId={setClickedId} />
           ))}
         </div>
       )}
-      {APIData.length === 0 && isLoading && (
-        <div><CircularProgress/></div>
+      {tempAPIData.length === 0 && isLoading && (
+        <div><CircularProgress /></div>
       )}
     </div>
   );
