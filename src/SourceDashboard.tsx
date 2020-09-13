@@ -4,6 +4,7 @@ import getData from "./api";
 
 import SourceCard from './SourceCard';
 import {DataSourceDto} from './types';
+import sheetData from './googleSheets';
 
 interface Props {
   isClicked: boolean
@@ -23,7 +24,7 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
     setIsLoading(true);
     async function fetch() {
       const data = await getData();
-      setAPIData(data);
+      setAPIData([...data, sheetData]);
       setIsLoading(false);
     }
     fetch();
