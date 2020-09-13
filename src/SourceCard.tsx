@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
-import { SourceData } from './source-data-model';
+import { DataSourceDto } from './types';
 
 const getImagePath = (name: string): string => {
   return `${process.env.PUBLIC_URL}/images/${name.toLowerCase().split(" ").join("-")}-logo.png`;
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 interface Props {
-  data: SourceData,
+  data: DataSourceDto,
   favSource: number[],
   addFavSource: React.Dispatch<React.SetStateAction<number[]>>,
   isFav?: Boolean,
@@ -66,7 +66,7 @@ const SourceCard: React.FC<Props> = ({ data, favSource, isFav, clickedId, addFav
           </IconButton>
         </CardActions>
       </Card>
-      <br/>
+      <br />
     </div>
   );
 };

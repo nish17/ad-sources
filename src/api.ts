@@ -1,5 +1,5 @@
 import axios from "axios";
-import {SourceData} from './source-data-model';
+import { DataSourceDto } from './types';
 
 const URL = "https://api.airboxr.com/data/dataSources";
 const TOKEN =
@@ -9,8 +9,8 @@ const config = {
 };
 
 export default async function getData() {
-  let response: {data: SourceData[]};
-  let APIData: SourceData[] = [];
+  let response: { data: DataSourceDto[] };
+  let APIData: DataSourceDto[] = [];
 
   try {
     response = await axios.get(URL, config);

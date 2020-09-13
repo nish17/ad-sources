@@ -3,30 +3,27 @@ import { Typography, CircularProgress, TextField } from '@material-ui/core';
 import getData from "./api";
 
 import SourceCard from './SourceCard';
-import { SourceData } from './source-data-model';
-
-import sheetData from './googleSheets';
-
+import {DataSourceDto} from './types';
 
 interface Props {
   isClicked: boolean
 }
 
 const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
-  const [APIData, setAPIData] = useState<SourceData[]>([]);
+  const [APIData, setAPIData] = useState<DataSourceDto[]>([]);
   const [favSources, setFavSources] = useState<Array<number>>([]);
 
   const [clickedId, setClickedId] = useState<number>(-1);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  let tempAPIData: SourceData[] = [];
+  let tempAPIData: DataSourceDto[] = [];
 
   useEffect(() => {
     if (!isClicked) return;
     setIsLoading(true);
     async function fetch() {
       const data = await getData();
-      setAPIData([...data, sheetData]);
+      setAPIData(data);
       setIsLoading(false);
     }
     fetch();
