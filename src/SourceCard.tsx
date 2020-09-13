@@ -42,7 +42,6 @@ const SourceCard: React.FC<Props> = ({ data, favSource, isFav, clickedId, addFav
   const classes = useStyles();
 
   const FavButtonHandler = (id: number) => {
-    console.log("Favorite Icon Clicked!", id)
     if (favSource.includes(id)) {
       const index = favSource.indexOf(id);
       favSource.splice(index, 1);
@@ -51,7 +50,6 @@ const SourceCard: React.FC<Props> = ({ data, favSource, isFav, clickedId, addFav
       addFavSource([...favSource, id]);
     }
     clickedId(id);
-    console.log('fav sources:', favSource);
   }
 
   return (

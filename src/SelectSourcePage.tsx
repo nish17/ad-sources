@@ -19,7 +19,6 @@ const SelectSourcePage:React.FC = () => {
 
 
   const TestBtnHandler = () => {
-    console.log("TODO - whatever you want to test/debug")
     setIsClicked(prevstate => !prevstate);
   }
 
@@ -28,7 +27,6 @@ const SelectSourcePage:React.FC = () => {
     <PageContainer>
       <FixedTopBar title="Select source" leftButton={topbarLeftButton} />
       <FixedMiddleBodyWithVerticalScroll>
-        {/* Body goes here */}
         <SourceDashboard isClicked={isClicked}/>
       </FixedMiddleBodyWithVerticalScroll>
       <FixedBottomPominentButton
