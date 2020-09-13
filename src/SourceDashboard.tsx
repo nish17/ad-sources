@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Typography from '@material-ui/core/Typography';
+import { Typography, CircularProgress} from '@material-ui/core';
 import getData from "./api";
 
 import SourceCard from './SourceCard';
@@ -7,8 +7,11 @@ import { SourceData } from './source-data-model';
 
 import sheetData from './googleSheets';
 
-const SourceDashboard = () => {
+const SourceDashboard:React.FC = () => {
   const [APIData, setAPIData] = useState<SourceData[]>([]);
+  const [favSources, setFavSources] = useState<Array<number>>([]);
+
+  const [clickedSource, setClickedSource] = useState<number>(-1);
 
   useEffect(() => {
     async function fetch() {
@@ -17,6 +20,12 @@ const SourceDashboard = () => {
     }
     fetch();
   }, []);
+
+  useEffect(() => {
+    const selectedSrc = APIData.findIndex((data) => data.id === clickedSource)
+    APIData.splice(0, 0, APIData.splice(selectedSrc, 1)[0]);
+
+  }, [clickedSource, APIData]);
 
   return (
     <div>
@@ -27,9 +36,14 @@ const SourceDashboard = () => {
       {APIData.length > 0 && (
         <div>
           {APIData.map((d, i) => (
-            <SourceCard key={i} data={d} />
+            !favSources.includes(d.id) ?
+              <SourceCard key={i} data={d} favSource={favSources} addFavSource={setFavSources} clickedSrc={setClickedSource} isFav /> :
+              <SourceCard key={i} data={d} favSource={favSources} addFavSource={setFavSources} clickedSrc={setClickedSource} />
           ))}
         </div>
+      )}
+      {APIData.length === 0 && (
+        <div><CircularProgress/></div>
       )}
     </div>
   );

@@ -31,7 +31,7 @@ interface Connection {
 }
 
 export interface SourceData {
-  id: Number,
+  id: number,
   uuid: string,
   name: string,
   connectionInfo: Connection
