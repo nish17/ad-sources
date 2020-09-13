@@ -11,7 +11,7 @@ const SourceDashboard:React.FC = () => {
   const [APIData, setAPIData] = useState<SourceData[]>([]);
   const [favSources, setFavSources] = useState<Array<number>>([]);
 
-  const [clickedSource, setClickedSource] = useState<number>(-1);
+  const [clickedId, setClickedId] = useState<number>(-1);
 
   useEffect(() => {
     async function fetch() {
@@ -22,10 +22,15 @@ const SourceDashboard:React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const selectedSrc = APIData.findIndex((data) => data.id === clickedSource)
-    APIData.splice(0, 0, APIData.splice(selectedSrc, 1)[0]);
+    if(clickedId === -1) return;
+    const newData = [...APIData];
 
-  }, [clickedSource, APIData]);
+    const selectedSrc = APIData.findIndex((data) => data.id === clickedId)
+    newData.splice(0, 0, newData.splice(selectedSrc, 1)[0]);
+
+    setAPIData(newData);
+
+  }, [clickedId]);
 
   return (
     <div>
@@ -37,8 +42,8 @@ const SourceDashboard:React.FC = () => {
         <div>
           {APIData.map((d, i) => (
             !favSources.includes(d.id) ?
-              <SourceCard key={i} data={d} favSource={favSources} addFavSource={setFavSources} clickedSrc={setClickedSource} isFav /> :
-              <SourceCard key={i} data={d} favSource={favSources} addFavSource={setFavSources} clickedSrc={setClickedSource} />
+              <SourceCard key={i} data={d} favSource={favSources} addFavSource={setFavSources} clickedId={setClickedId} isFav /> :
+              <SourceCard key={i} data={d} favSource={favSources} addFavSource={setFavSources} clickedId={setClickedId} />
           ))}
         </div>
       )}

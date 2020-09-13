@@ -34,12 +34,12 @@ interface Props {
   favSource: number[],
   addFavSource: React.Dispatch<React.SetStateAction<number[]>>,
   isFav?: Boolean,
-  clickedSrc: React.Dispatch<React.SetStateAction<number>>
+  clickedId: React.Dispatch<React.SetStateAction<number>>
 }
 
 
 
-const SourceCard: React.FC<Props> = ({ data, favSource, isFav, clickedSrc, addFavSource }) => {
+const SourceCard: React.FC<Props> = ({ data, favSource, isFav, clickedId, addFavSource }) => {
   const classes = useStyles();
 
   const FavButtonHandler = (id: number) => {
@@ -49,7 +49,7 @@ const SourceCard: React.FC<Props> = ({ data, favSource, isFav, clickedSrc, addFa
       favSource.splice(index, 1);
     }
     else {
-      clickedSrc(id);
+      clickedId(id);
       addFavSource([...favSource, id]);
     }
     console.log('fav sources:', favSource);
