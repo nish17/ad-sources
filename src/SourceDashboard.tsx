@@ -5,19 +5,41 @@ import getData from "./api";
 import SourceCard from './SourceCard';
 import {DataSourceDto} from './types';
 import sheetData from './googleSheets';
+// import { SourceData } from "./source-data-model";
 
 interface Props {
   isClicked: boolean
 }
 
+interface SourceDataType {
+  data: DataSourceDto,
+  isMarked: boolean,
+  iconUrl: string
+}
+
 const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
   const [APIData, setAPIData] = useState<DataSourceDto[]>([]);
   const [favSources, setFavSources] = useState<Array<number>>([]);
-
   const [clickedId, setClickedId] = useState<number>(-1);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  let tempAPIData: DataSourceDto[] = [];
+
+  const [dataSource, setDataSource] = useState<SourceDataType[]>([]);
+
+  let tempAPIData: SourceDataType[] = [];
+
+  const getImagePath = (name: string): string => {
+    return `${process.env.PUBLIC_URL}/images/${name.toLowerCase().split(" ").join("-")}-logo.png`;
+  };
+
+  const changeAPIDataType = (data: DataSourceDto):SourceDataType =>{
+    const sourceDataTypeObj:SourceDataType = {
+      data: data,
+      isMarked: false,
+      iconUrl: getImagePath(data.name)
+    };
+    return sourceDataTypeObj;
+  }
 
   useEffect(() => {
     if (!isClicked) return;
@@ -25,6 +47,7 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
     async function fetch() {
       const data = await getData();
       setAPIData([...data, sheetData]);
+      // setDataSource(oldData => oldData.map(changeAPIDataType))
       setIsLoading(false);
     }
     fetch();
@@ -42,8 +65,9 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
     setAPIData(newData);
 
   }, [clickedId]);
-
-  tempAPIData = APIData.filter((d) => d.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 );
+  
+  setDataSource(APIData.map(changeAPIDataType));
+  tempAPIData = dataSource.filter((d) => d.data.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 );
   return (
     <div>
       <Typography gutterBottom variant="h5" component="h2">
@@ -67,9 +91,9 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
       {tempAPIData.length > 0 && (
         <div>
           {tempAPIData.map((d, i) => (
-            !favSources.includes(d.id) ?
-              <SourceCard key={i} data={d} favSource={favSources} addFavSource={setFavSources} clickedId={setClickedId} isFav /> :
-              <SourceCard key={i} data={d} favSource={favSources} addFavSource={setFavSources} clickedId={setClickedId} />
+            !favSources.includes(d.data.id) ?
+              <SourceCard key={i} data={d.data} favSource={favSources} addFavSource={setFavSources} clickedId={setClickedId} isFav /> :
+              <SourceCard key={i} data={d.data} favSource={favSources} addFavSource={setFavSources} clickedId={setClickedId} />
           ))}
         </div>
       )}
