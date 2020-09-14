@@ -309,3 +309,9 @@ export interface InitDataDto {
     commonScopes: string;
   };
 }
+
+export interface SourceDataType {
+  data: DataSourceDto,
+  isMarked: boolean,
+  iconUrl: string
+}
