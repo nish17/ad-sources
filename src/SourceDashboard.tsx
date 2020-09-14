@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Typography, CircularProgress, TextField } from '@material-ui/core';
 import getData from "./api";
 
 import SourceCard from './SourceCard';
-import {DataSourceDto} from './types';
+import { DataSourceDto } from './types';
 import sheetData from './googleSheets';
 // import { SourceData } from "./source-data-model";
 
@@ -32,14 +32,14 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
     return `${process.env.PUBLIC_URL}/images/${name.toLowerCase().split(" ").join("-")}-logo.png`;
   };
 
-  const changeAPIDataType = (data: DataSourceDto):SourceDataType =>{
-    const sourceDataTypeObj:SourceDataType = {
+  const changeAPIDataType = useCallback((data: DataSourceDto): SourceDataType => {
+    const sourceDataTypeObj: SourceDataType = {
       data: data,
       isMarked: false,
       iconUrl: getImagePath(data.name)
     };
     return sourceDataTypeObj;
-  }
+  }, []);
 
   useEffect(() => {
     if (!isClicked) return;
@@ -47,34 +47,34 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
     async function fetch() {
       const data = await getData();
       setAPIData([...data, sheetData]);
-      // setDataSource(oldData => oldData.map(changeAPIDataType))
+      setDataSource(APIData.map(changeAPIDataType));
       setIsLoading(false);
     }
     fetch();
-  }, [isClicked]);
+  }, [isClicked, APIData, changeAPIDataType]);
 
 
 
-  useEffect(() => {
-    if (clickedId === -1 || !favSources.includes(clickedId)) return;
-    const newData = [...APIData];
-
-    const selectedSrcIndex = APIData.findIndex((data) => data.id === clickedId)
-    newData.splice(0, 0, newData.splice(selectedSrcIndex, 1)[0]);
-
-    setAPIData(newData);
-
-  }, [clickedId]);
+  /*   useEffect(() => {
+      if (clickedId === -1 || !favSources.includes(clickedId)) return;
+      const newData = [...APIData];
   
-  setDataSource(APIData.map(changeAPIDataType));
-  tempAPIData = dataSource.filter((d) => d.data.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 );
+      const selectedSrcIndex = APIData.findIndex((data) => data.id === clickedId)
+      newData.splice(0, 0, newData.splice(selectedSrcIndex, 1)[0]);
+  
+      setAPIData(newData);
+  
+    }, [clickedId]);
+     */
+  // setDataSource(APIData.map(changeAPIDataType));
+  tempAPIData = dataSource.filter((d) => d.data.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
   return (
     <div>
       <Typography gutterBottom variant="h5" component="h2">
         Below is the list of the sources you have connected. Please choose the
         data source you would like to import data from.
       </Typography>
-      {isClicked &&<TextField
+      {isClicked && <TextField
         id="outlined-full-width"
         label="Search Sources"
         style={{ margin: 8 }}
