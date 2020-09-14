@@ -10,11 +10,6 @@ interface Props {
   isClicked: boolean
 }
 
-// interface SourceDataType {
-//   data: DataSourceDto,
-//   isMarked: boolean,
-//   iconUrl: string
-// }
 
 const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
   const [APIData, setAPIData] = useState<SourceDataType[]>([]);
