@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Typography, CircularProgress, TextField } from '@material-ui/core';
+import { Typography, CircularProgress, TextField, Grid } from '@material-ui/core';
 import getData from "./api";
 
 import SourceCard from './SourceCard';
-import { DataSourceDto,SourceDataType, clickParams } from './types';
+import { DataSourceDto, SourceDataType, clickParams } from './types';
 import sheetData from './googleSheets';
 
 interface Props {
@@ -14,7 +14,7 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
   const [APIData, setAPIData] = useState<SourceDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [clickedParams, setClickedParams] = useState<clickParams>({id:-1,fav:false});
+  const [clickedParams, setClickedParams] = useState<clickParams>({ id: -1, fav: false });
 
   let tempAPIData: SourceDataType[] = [];
   const getImagePath = (name: string): string => {
@@ -42,15 +42,15 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
   }, [isClicked, changeAPIDataType]);
 
   useEffect(() => {
-    if (clickedParams.id === -1) return; 
+    if (clickedParams.id === -1) return;
     let dataToUpdate = [...APIData];
     const selectedSrcIndex = dataToUpdate.findIndex((d) => d.data.id === clickedParams.id);
-    if(dataToUpdate[selectedSrcIndex].isMarked === clickedParams.fav) return;
+    if (dataToUpdate[selectedSrcIndex].isMarked === clickedParams.fav) return;
     dataToUpdate[selectedSrcIndex].isMarked = !dataToUpdate[selectedSrcIndex].isMarked;
     dataToUpdate = [...dataToUpdate.filter(d => d.isMarked === true), ...dataToUpdate.filter(d => d.isMarked === false)];
     setAPIData(dataToUpdate);
 
-  }, [clickedParams,APIData]);
+  }, [clickedParams, APIData]);
   tempAPIData = APIData.filter((d) => d.data.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
   return (
     <div>
@@ -74,9 +74,13 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
       />}
       {tempAPIData.length > 0 && (
         <div>
-          {tempAPIData.map((d, i) => (
-            <SourceCard key={i} apiData={d} clickedParams={setClickedParams} isFav={d.isMarked} />
-          ))}
+          <Grid container direction='row' spacing={2}>
+            {tempAPIData.map((d, i) => (
+              <Grid item xs={12} sm={6}>
+                <SourceCard key={i} apiData={d} clickedParams={setClickedParams} isFav={d.isMarked} />
+              </Grid>
+            ))}
+          </Grid>
         </div>
       )}
       {tempAPIData.length === 0 && isLoading && (
