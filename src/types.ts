@@ -315,3 +315,8 @@ export interface SourceDataType {
   isMarked: boolean,
   iconUrl: string
 }
+
+export interface clickParams {
+  id: number,
+  fav: boolean
+}
