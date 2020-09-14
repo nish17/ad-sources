@@ -12,9 +12,11 @@ Task is to develop a SelectSourcePage as per the [design](https://drive.google.c
 
 ### Approach:
 
-- On every single click to add favorite source, I am changing the location of that particular object in the array and adding it at the top which implements the feature of moving element at the top on favorite.
+- (OLD) On every single click to add favorite source, I am changing the location of that particular object in the array and adding it at the top which implements the feature of moving element at the top on favorite.
+
+- (NEW) On receving the data from the API, I am adding few fields to the received data, which makes to easier to implement the required functionalities.  
 
 ### Known Issues:
 
-- Let's say we have 3 favorite sources and all of them are at the top, now if we unmark the middle source it doesn't update the list and move the 3rd favorite at the top.
+- Let's say we have 3 favorite sources and all of them are at the top, now if we unmark the middle source it doesn't update the list and move the 3rd favorite at the top. (✅ Fixed)
 - 'Google Ads' image is not loading because of Adblocker ChromeExtension. Please try it once in incognito mode.
