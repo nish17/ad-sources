@@ -3,31 +3,27 @@ import { Typography, CircularProgress, TextField } from '@material-ui/core';
 import getData from "./api";
 
 import SourceCard from './SourceCard';
-import { DataSourceDto } from './types';
+import { DataSourceDto,SourceDataType } from './types';
 import sheetData from './googleSheets';
-// import { SourceData } from "./source-data-model";
 
 interface Props {
   isClicked: boolean
 }
 
-interface SourceDataType {
-  data: DataSourceDto,
-  isMarked: boolean,
-  iconUrl: string
-}
+// interface SourceDataType {
+//   data: DataSourceDto,
+//   isMarked: boolean,
+//   iconUrl: string
+// }
 
 const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
-  const [APIData, setAPIData] = useState<DataSourceDto[]>([]);
-  const [favSources, setFavSources] = useState<Array<number>>([]);
-  const [clickedId, setClickedId] = useState<number>(-1);
+  const [APIData, setAPIData] = useState<SourceDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
-
-  const [dataSource, setDataSource] = useState<SourceDataType[]>([]);
+  const [clickedId, setClickedId] = useState<number>(-1);
+  const [prevClickId, setPrevClickId] = useState<number>(-1);
 
   let tempAPIData: SourceDataType[] = [];
-
   const getImagePath = (name: string): string => {
     return `${process.env.PUBLIC_URL}/images/${name.toLowerCase().split(" ").join("-")}-logo.png`;
   };
@@ -46,28 +42,24 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
     setIsLoading(true);
     async function fetch() {
       const data = await getData();
-      setAPIData([...data, sheetData]);
-      setDataSource(APIData.map(changeAPIDataType));
+      setAPIData([...data, sheetData].map(changeAPIDataType));
       setIsLoading(false);
     }
     fetch();
-  }, [isClicked, APIData, changeAPIDataType]);
+  }, [isClicked, changeAPIDataType]);
 
+  useEffect(() => {
+    if (clickedId === -1 || clickedId === prevClickId) return; 
+    let dataToUpdate = [...APIData];
+    const selectedSrcIndex = dataToUpdate.findIndex((d) => d.data.id === clickedId);
+    dataToUpdate[selectedSrcIndex].isMarked = !dataToUpdate[selectedSrcIndex].isMarked;
+    dataToUpdate = [...dataToUpdate.filter(d => d.isMarked === true), ...dataToUpdate.filter(d => d.isMarked === false)];
 
-
-  /*   useEffect(() => {
-      if (clickedId === -1 || !favSources.includes(clickedId)) return;
-      const newData = [...APIData];
-  
-      const selectedSrcIndex = APIData.findIndex((data) => data.id === clickedId)
-      newData.splice(0, 0, newData.splice(selectedSrcIndex, 1)[0]);
-  
-      setAPIData(newData);
-  
-    }, [clickedId]);
-     */
-  // setDataSource(APIData.map(changeAPIDataType));
-  tempAPIData = dataSource.filter((d) => d.data.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+    setAPIData(dataToUpdate);
+    setPrevClickId(clickedId);
+    
+  }, [clickedId,prevClickId,APIData]);
+  tempAPIData = APIData.filter((d) => d.data.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
   return (
     <div>
       <Typography gutterBottom variant="h5" component="h2">
@@ -91,9 +83,7 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
       {tempAPIData.length > 0 && (
         <div>
           {tempAPIData.map((d, i) => (
-            !favSources.includes(d.data.id) ?
-              <SourceCard key={i} data={d.data} favSource={favSources} addFavSource={setFavSources} clickedId={setClickedId} isFav /> :
-              <SourceCard key={i} data={d.data} favSource={favSources} addFavSource={setFavSources} clickedId={setClickedId} />
+            <SourceCard key={i} apiData={d} clickedId={setClickedId} isFav={d.isMarked} />
           ))}
         </div>
       )}
