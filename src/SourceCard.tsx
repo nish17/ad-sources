@@ -12,9 +12,6 @@ import { SourceDataType, clickParams} from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      maxWidth: 345
-    },
     media: {
       width: '110px',
       height: '100px',
@@ -39,7 +36,7 @@ const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams,  }) => {
 
   return (
     <div>
-      <Card className={classes.root} variant="outlined">
+      <Card variant="outlined">
         <CardHeader title={apiData.data.name} />
         <CardMedia className={classes.media} image={apiData.iconUrl} />
         <CardActions disableSpacing>
