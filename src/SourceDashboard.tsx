@@ -3,20 +3,18 @@ import { Typography, CircularProgress, TextField } from '@material-ui/core';
 import getData from "./api";
 
 import SourceCard from './SourceCard';
-import { DataSourceDto,SourceDataType } from './types';
+import { DataSourceDto,SourceDataType, clickParams } from './types';
 import sheetData from './googleSheets';
 
 interface Props {
   isClicked: boolean
 }
 
-
 const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
   const [APIData, setAPIData] = useState<SourceDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [clickedId, setClickedId] = useState<number>(-1);
-  const [prevClickId, setPrevClickId] = useState<number>(-1);
+  const [clickedParams, setClickedParams] = useState<clickParams>({id:-1,fav:false});
 
   let tempAPIData: SourceDataType[] = [];
   const getImagePath = (name: string): string => {
@@ -44,16 +42,15 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
   }, [isClicked, changeAPIDataType]);
 
   useEffect(() => {
-    if (clickedId === -1 || clickedId === prevClickId) return; 
+    if (clickedParams.id === -1) return; 
     let dataToUpdate = [...APIData];
-    const selectedSrcIndex = dataToUpdate.findIndex((d) => d.data.id === clickedId);
+    const selectedSrcIndex = dataToUpdate.findIndex((d) => d.data.id === clickedParams.id);
+    if(dataToUpdate[selectedSrcIndex].isMarked === clickedParams.fav) return;
     dataToUpdate[selectedSrcIndex].isMarked = !dataToUpdate[selectedSrcIndex].isMarked;
     dataToUpdate = [...dataToUpdate.filter(d => d.isMarked === true), ...dataToUpdate.filter(d => d.isMarked === false)];
-
     setAPIData(dataToUpdate);
-    setPrevClickId(clickedId);
-    
-  }, [clickedId,prevClickId,APIData]);
+
+  }, [clickedParams,APIData]);
   tempAPIData = APIData.filter((d) => d.data.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
   return (
     <div>
@@ -78,7 +75,7 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
       {tempAPIData.length > 0 && (
         <div>
           {tempAPIData.map((d, i) => (
-            <SourceCard key={i} apiData={d} clickedId={setClickedId} isFav={d.isMarked} />
+            <SourceCard key={i} apiData={d} clickedParams={setClickedParams} isFav={d.isMarked} />
           ))}
         </div>
       )}

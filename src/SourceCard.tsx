@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
-import { SourceDataType} from './types';
+import { SourceDataType, clickParams} from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,16 +27,14 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   apiData: SourceDataType,
   isFav?: Boolean,
-  clickedId: React.Dispatch<React.SetStateAction<number>>
+  clickedParams: React.Dispatch<React.SetStateAction<clickParams>>
 }
 
-
-
-const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedId,  }) => {
+const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams,  }) => {
   const classes = useStyles();
 
-  const FavButtonHandler = (id: number) => {
-    clickedId(id);
+  const FavButtonHandler = (id: number, fav: boolean) => {
+    clickedParams({id, fav});
   }
 
   return (
@@ -45,7 +43,7 @@ const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedId,  }) => {
         <CardHeader title={apiData.data.name} />
         <CardMedia className={classes.media} image={apiData.iconUrl} />
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={() => FavButtonHandler(apiData.data.id)} >
+          <IconButton aria-label="add to favorites" onClick={() => FavButtonHandler(apiData.data.id, !apiData.isMarked)} >
             {isFav ? <FavoriteIcon/> : <FavoriteBorderIcon />}
           </IconButton>
         </CardActions>
