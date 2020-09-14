@@ -8,11 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
-import { DataSourceDto } from './types';
-
-const getImagePath = (name: string): string => {
-  return `${process.env.PUBLIC_URL}/images/${name.toLowerCase().split(" ").join("-")}-logo.png`;
-};
+import { SourceDataType, clickParams} from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,38 +25,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 interface Props {
-  data: DataSourceDto,
-  favSource: number[],
-  addFavSource: React.Dispatch<React.SetStateAction<number[]>>,
+  apiData: SourceDataType,
   isFav?: Boolean,
-  clickedId: React.Dispatch<React.SetStateAction<number>>
+  clickedParams: React.Dispatch<React.SetStateAction<clickParams>>
 }
 
-
-
-const SourceCard: React.FC<Props> = ({ data, favSource, isFav, clickedId, addFavSource }) => {
+const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams,  }) => {
   const classes = useStyles();
 
-  const FavButtonHandler = (id: number) => {
-    if (favSource.includes(id)) {
-      const index = favSource.indexOf(id);
-      favSource.splice(index, 1);
-    }
-    else {
-      addFavSource([...favSource, id]);
-    }
-    clickedId(id);
+  const FavButtonHandler = (id: number, fav: boolean) => {
+    clickedParams({id, fav});
   }
 
   return (
     <div>
       <Card className={classes.root} variant="outlined">
-        <CardHeader title={data.name} />
-        <CardMedia className={classes.media} image={getImagePath(data.name)} />
+        <CardHeader title={apiData.data.name} />
+        <CardMedia className={classes.media} image={apiData.iconUrl} />
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={() => FavButtonHandler(data.id)} >
-            {isFav && <FavoriteBorderIcon />}
-            {!isFav && <FavoriteIcon />}
+          <IconButton aria-label="add to favorites" onClick={() => FavButtonHandler(apiData.data.id, !apiData.isMarked)} >
+            {isFav ? <FavoriteIcon/> : <FavoriteBorderIcon />}
           </IconButton>
         </CardActions>
       </Card>
