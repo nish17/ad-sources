@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Homepage from './HomePage';
 import SelectSourcePage from './SelectSourcePage';
+import SelectTablePage from './SelectTablePage';
 
 const App: React.FC = () => {
 
@@ -11,6 +12,7 @@ const App: React.FC = () => {
       <Switch>
         <Route path='/' exact component={Homepage}/>
         <Route path='/select-source-page' component={SelectSourcePage} />
+        <Route path='/select-table' component={SelectTablePage} />
       </Switch>
     </Router>
   );
