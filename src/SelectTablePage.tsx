@@ -6,8 +6,15 @@ import {
   FixedBottomPominentButton,
   TopbarBackButton
 } from "./layout-components";
-import { HistoryProp } from './types';
-const SelectTablePage: React.FC<HistoryProp> = ({ history }) => {
+// import { HistoryProp } from './types';
+
+import { History } from 'history';
+
+interface Props {
+  history: History,
+  match: any
+}
+const SelectTablePage: React.FC<Props> = ({ history, match }) => {
 
   const topbarLeftButton: TopbarBackButton = {
     type: "back",
@@ -15,6 +22,7 @@ const SelectTablePage: React.FC<HistoryProp> = ({ history }) => {
   };
 
   const NextBtnHandler = () => {
+    console.log(match);
     // setIsClicked(prevstate => !prevstate);
 
   }
@@ -23,8 +31,9 @@ const SelectTablePage: React.FC<HistoryProp> = ({ history }) => {
     <PageContainer>
       <FixedTopBar title="Select Table" leftButton={topbarLeftButton} />
       <Typography variant="h5">
-        
-        </Typography>    
+        {match.params.sourceName.split('-').join(' ')} has the following tables ready for import. 
+        Please select the table you would like to import.
+        </Typography>
       <FixedBottomPominentButton
         title="Next"
         onClick={() => NextBtnHandler()}
