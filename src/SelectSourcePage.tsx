@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   PageContainer,
   FixedTopBar,
@@ -8,11 +8,12 @@ import {
 } from "./layout-components";
 
 import SourceDashboard from "./SourceDashboard";
+import { HistoryProp } from './types';
 
-const SelectSourcePage:React.FC = () => {
+const SelectSourcePage: React.FC<HistoryProp> = ({ history }) => {
   const topbarLeftButton: TopbarBackButton = {
     type: "back",
-    onClick: () => console.log("Clicked back")
+    onClick: () => { history.goBack(); console.log("Clicked back") }
   };
 
   const [isClicked, setIsClicked] = useState(false);
@@ -27,7 +28,7 @@ const SelectSourcePage:React.FC = () => {
     <PageContainer>
       <FixedTopBar title="Select source" leftButton={topbarLeftButton} />
       <FixedMiddleBodyWithVerticalScroll>
-        <SourceDashboard isClicked={isClicked}/>
+        <SourceDashboard isClicked={isClicked} />
       </FixedMiddleBodyWithVerticalScroll>
       <FixedBottomPominentButton
         title="Test / Debug"
