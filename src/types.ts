@@ -1,6 +1,7 @@
 import _ from "lodash";
+import { History } from 'history';
 
-export interface NoContent {}
+export interface NoContent { }
 
 export enum DataType {
   Boolean = "Bool",
@@ -54,11 +55,11 @@ interface StringFilter {
 
 export interface NumberOneArgComparisonOperation {
   type:
-    | ComparisonOperationType.Equals
-    | ComparisonOperationType.Greater
-    | ComparisonOperationType.GreaterEquals
-    | ComparisonOperationType.Smaller
-    | ComparisonOperationType.SmallerEquals;
+  | ComparisonOperationType.Equals
+  | ComparisonOperationType.Greater
+  | ComparisonOperationType.GreaterEquals
+  | ComparisonOperationType.Smaller
+  | ComparisonOperationType.SmallerEquals;
   value: number;
 }
 
@@ -74,11 +75,11 @@ interface NumberFilter {
 
 export interface DateOneArgComparisonOperation {
   type:
-    | ComparisonOperationType.Equals
-    | ComparisonOperationType.Greater
-    | ComparisonOperationType.GreaterEquals
-    | ComparisonOperationType.Smaller
-    | ComparisonOperationType.SmallerEquals;
+  | ComparisonOperationType.Equals
+  | ComparisonOperationType.Greater
+  | ComparisonOperationType.GreaterEquals
+  | ComparisonOperationType.Smaller
+  | ComparisonOperationType.SmallerEquals;
   value: Date | null;
 }
 
@@ -160,16 +161,16 @@ export interface SyncedSourceOAuth2Info {
 
 export type DataSourceAuthInfo =
   | {
-      type: AuthType.None;
-    }
+    type: AuthType.None;
+  }
   | {
-      type: AuthType.Token;
-      authTokenHeaderKey: string;
-    }
+    type: AuthType.Token;
+    authTokenHeaderKey: string;
+  }
   | {
-      type: AuthType.OAuth2;
-      oAuth2Info: DataSourceOAuth2Info;
-    };
+    type: AuthType.OAuth2;
+    oAuth2Info: DataSourceOAuth2Info;
+  };
 
 export enum ConnectionInfoType {
   Lib = "LIB",
@@ -183,60 +184,60 @@ export enum InjectionType {
 
 export type DataSourceInjection =
   | {
-      type: InjectionType.SET;
-      key: string;
-      label: string;
-      description: string;
-    }
+    type: InjectionType.SET;
+    key: string;
+    label: string;
+    description: string;
+  }
   | {
-      type: InjectionType.INTERPOLATE;
-      key: string;
-      interpolationKey: string;
-      label: string;
-      description: string;
-    };
+    type: InjectionType.INTERPOLATE;
+    key: string;
+    interpolationKey: string;
+    label: string;
+    description: string;
+  };
 
 // This isn't ideal. changed in key, label, description in data source injection should reflect here too..
 export type SyncedSourceInjection =
   | {
-      type: InjectionType.SET;
-      key: string;
-      label: string;
-      value: string | number | boolean;
-      description: string;
-    }
+    type: InjectionType.SET;
+    key: string;
+    label: string;
+    value: string | number | boolean;
+    description: string;
+  }
   | {
-      type: InjectionType.INTERPOLATE;
-      key: string;
-      interpolationKey: string;
-      label: string;
-      value: string | number | boolean;
-      description: string;
-    };
+    type: InjectionType.INTERPOLATE;
+    key: string;
+    interpolationKey: string;
+    label: string;
+    value: string | number | boolean;
+    description: string;
+  };
 
 export type SyncedSourceConnectionInfo =
   | {
-      type: ConnectionInfoType.Lib;
-      // TODO:
-    }
+    type: ConnectionInfoType.Lib;
+    // TODO:
+  }
   | {
-      type: ConnectionInfoType.RestApi;
-      authInfo: SyncedSourceAuthInfo;
-      injections: Array<SyncedSourceInjection>;
-    };
+    type: ConnectionInfoType.RestApi;
+    authInfo: SyncedSourceAuthInfo;
+    injections: Array<SyncedSourceInjection>;
+  };
 
 export type SyncedSourceAuthInfo =
   | {
-      type: AuthType.None;
-    }
+    type: AuthType.None;
+  }
   | {
-      type: AuthType.Token;
-      token: string;
-    }
+    type: AuthType.Token;
+    token: string;
+  }
   | {
-      type: AuthType.OAuth2;
-      oAuth2Info: SyncedSourceOAuth2Info;
-    };
+    type: AuthType.OAuth2;
+    oAuth2Info: SyncedSourceOAuth2Info;
+  };
 
 export enum SyncedSourceSyncFrequency {
   OneMin = 60000,
@@ -252,17 +253,17 @@ export enum SyncedSourceStatus {
 }
 export type DataSourceConnectionInfo =
   | {
-      type: ConnectionInfoType.Lib;
-      // TODO
-    }
+    type: ConnectionInfoType.Lib;
+    // TODO
+  }
   | {
-      type: ConnectionInfoType.RestApi;
-      baseUrl: string;
-      headers: { [key: string]: string };
-      params: { [key: string]: string };
-      authInfo: DataSourceAuthInfo;
-      injections: Array<DataSourceInjection>;
-    };
+    type: ConnectionInfoType.RestApi;
+    baseUrl: string;
+    headers: { [key: string]: string };
+    params: { [key: string]: string };
+    authInfo: DataSourceAuthInfo;
+    injections: Array<DataSourceInjection>;
+  };
 
 export interface DataStoreTable {
   id: number;
@@ -319,4 +320,8 @@ export interface SourceDataType {
 export interface clickParams {
   id: number,
   fav: boolean
+}
+
+export interface HistoryProp {
+  history: History
 }
