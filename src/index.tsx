@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
 
-import SelectSourcePage from './SelectSourcePage';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <SelectSourcePage />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
