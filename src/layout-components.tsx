@@ -80,7 +80,7 @@ export const FixedBottomPominentButton: React.FunctionComponent<BottomButtonProp
       {props.processing || false ? (
         <CircularProgress />
       ) : (
-          <Button style={{ height: 50, width: "100%" }} onClick={props.onClick}>
+          <Button style={{ height: 50, width: "100%", color: '#fff', backgroundColor: '#F86164' }} onClick={props.onClick}>
             {props.title}
           </Button>
         )}
