@@ -75,9 +75,9 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
       {tempAPIData.length > 0 && (
         <div>
           <Grid container direction='row' spacing={2}>
-            {tempAPIData.map((d, i) => (
-              <Grid item xs={12} sm={6}>
-                <SourceCard key={i} apiData={d} clickedParams={setClickedParams} isFav={d.isMarked} />
+            {tempAPIData.map(d => (
+              <Grid key={d.data.id} item xs={12} sm={6}>
+                <SourceCard apiData={d} clickedParams={setClickedParams} isFav={d.isMarked} />
               </Grid>
             ))}
           </Grid>
