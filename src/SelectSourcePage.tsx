@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { withRouter } from 'react-router-dom';
+
 import {
   PageContainer,
   FixedTopBar,
@@ -10,10 +12,10 @@ import {
 import SourceDashboard from "./SourceDashboard";
 import { HistoryProp } from './types';
 
-const SelectSourcePage: React.FC<HistoryProp> = ({ history }) => {
+const SelectSourcePage: React.FC<HistoryProp> = (props) => {
   const topbarLeftButton: TopbarBackButton = {
     type: "back",
-    onClick: () => { history.goBack(); console.log("Clicked back") }
+    onClick: () => { props.history.goBack(); console.log("Clicked back") }
   };
 
   const [isClicked, setIsClicked] = useState(false);
@@ -28,7 +30,7 @@ const SelectSourcePage: React.FC<HistoryProp> = ({ history }) => {
     <PageContainer>
       <FixedTopBar title="Select source" leftButton={topbarLeftButton} />
       <FixedMiddleBodyWithVerticalScroll>
-        <SourceDashboard isClicked={isClicked} />
+        <SourceDashboard isClicked={isClicked} {...props}/>
       </FixedMiddleBodyWithVerticalScroll>
       <FixedBottomPominentButton
         title="Test / Debug"
@@ -38,4 +40,4 @@ const SelectSourcePage: React.FC<HistoryProp> = ({ history }) => {
   );
 };
 
-export default SelectSourcePage;
+export default withRouter(SelectSourcePage);

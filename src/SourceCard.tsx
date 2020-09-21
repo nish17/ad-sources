@@ -9,6 +9,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 import { SourceDataType, clickParams} from './types';
+import { History } from 'history';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,13 +26,15 @@ interface Props {
   apiData: SourceDataType,
   isFav?: Boolean,
   clickedParams: React.Dispatch<React.SetStateAction<clickParams>>
+  history: History
 }
 
-const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams,  }) => {
+const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams,history }) => {
   const classes = useStyles();
 
   const FavButtonHandler = (id: number, fav: boolean) => {
     clickedParams({id, fav});
+    history.push('/select-table')
   }
 
   return (

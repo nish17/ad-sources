@@ -5,12 +5,14 @@ import getData from "./api";
 import SourceCard from './SourceCard';
 import { DataSourceDto, SourceDataType, clickParams } from './types';
 import sheetData from './googleSheets';
+import { History } from 'history';
 
 interface Props {
-  isClicked: boolean
+  isClicked: boolean,
+  history: History
 }
 
-const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
+const SourceDashboard: React.FC<Props> = ({ isClicked, history }) => {
   const [APIData, setAPIData] = useState<SourceDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -77,7 +79,7 @@ const SourceDashboard: React.FC<Props> = ({ isClicked }) => {
           <Grid container direction='row' spacing={2}>
             {tempAPIData.map(d => (
               <Grid key={d.data.id} item xs={12} sm={6}>
-                <SourceCard apiData={d} clickedParams={setClickedParams} isFav={d.isMarked} />
+                <SourceCard apiData={d} clickedParams={setClickedParams} isFav={d.isMarked} history={history} />
               </Grid>
             ))}
           </Grid>
