@@ -14,8 +14,8 @@ const Homepage: React.FC<HistoryProp> = ({ history }) => {
 
   return (
     <PageContainer>
-      <Typography variant="h2" gutterBottom>What would you like to do today?</Typography>
-      <Typography variant="h5" gutterBottom>Welcome to Airboxr. Let's start with the task you want to accomplish today</Typography>
+      <Typography variant="h1" gutterBottom>What would you like to do today?</Typography>
+      <Typography variant="h6" gutterBottom>Welcome to Airboxr. Let's start with the task you want to accomplish today</Typography>
       <Button variant="outlined" color="primary" onClick={btnClickHandler}>
         Import Data
       </Button><br />
