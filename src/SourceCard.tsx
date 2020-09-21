@@ -32,9 +32,9 @@ interface Props {
 const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams,history }) => {
   const classes = useStyles();
 
-  const FavButtonHandler = (id: number, fav: boolean) => {
+  const FavButtonHandler = (id: number, fav: boolean, name: string) => {
     clickedParams({id, fav});
-    history.push('/select-table')
+    history.push(`/select-table/${name.toLowerCase().split(' ').join('-')}`)
   }
 
   return (
@@ -43,7 +43,7 @@ const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams,history }) 
         <CardHeader title={apiData.data.name} />
         <CardMedia className={classes.media} image={apiData.iconUrl} />
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={() => FavButtonHandler(apiData.data.id, !apiData.isMarked)} >
+          <IconButton aria-label="add to favorites" onClick={() => FavButtonHandler(apiData.data.id, !apiData.isMarked, apiData.data.name)} >
             {isFav ? <FavoriteIcon/> : <FavoriteBorderIcon />}
           </IconButton>
         </CardActions>
