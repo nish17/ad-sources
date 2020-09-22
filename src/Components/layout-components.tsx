@@ -93,7 +93,7 @@ export const FixedMiddleBody: React.FunctionComponent<{}> = (props) => {
       style={{
         paddingLeft: 15,
         paddingRight: 15,
-        position:'absolute',
+        position: 'absolute',
         top: 70,
         right: 50,
         bottom: 65,

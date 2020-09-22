@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
-import { PageContainer, FixedMiddleBody, FixedTopBar } from "./layout-components";
-import { HistoryProp } from './types';
+import { PageContainer, FixedMiddleBody, FixedTopBar } from "../layout-components";
+import { HistoryProp } from '../../types';
 
 
 

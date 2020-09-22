@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Typography, CircularProgress, TextField, Grid } from '@material-ui/core';
-import getData from "./api";
+import getData from "../../utils/api";
 
 import SourceCard from './SourceCard';
-import { DataSourceDto, SourceDataType, clickParams } from './types';
-import sheetData from './googleSheets';
+import { DataSourceDto, SourceDataType, clickParams } from '../../types';
+import sheetData from '../../utils/googleSheets';
 import { History } from 'history';
 
 interface Props {

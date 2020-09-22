@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
-import { SourceDataType, clickParams} from './types';
+import { SourceDataType, clickParams} from '../../types';
 import { History } from 'history';
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,4 +1,4 @@
-import { DataSourceDto, ConnectionInfoType, InjectionType, AuthType, OauthProvider } from './types';
+import { DataSourceDto, ConnectionInfoType, InjectionType, AuthType, OauthProvider } from '../types';
 const sheetData: DataSourceDto = {
     "id": 27,
     "uuid": "d1c3c51b-0999-4af1-a980-e1e12001dde8",

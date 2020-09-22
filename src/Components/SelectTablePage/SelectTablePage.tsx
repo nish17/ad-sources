@@ -6,7 +6,7 @@ import {
   FixedBottomPominentButton,
   FixedMiddleBody,
   TopbarBackButton
-} from "./layout-components";
+} from "../layout-components";
 // import { HistoryProp } from './types';
 
 import { History } from 'history';

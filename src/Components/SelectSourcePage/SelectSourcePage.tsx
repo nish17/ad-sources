@@ -7,10 +7,10 @@ import {
   FixedMiddleBodyWithVerticalScroll,
   FixedBottomPominentButton,
   TopbarBackButton
-} from "./layout-components";
+} from "../layout-components";
 
 import SourceDashboard from "./SourceDashboard";
-import { HistoryProp } from './types';
+import { HistoryProp } from '../../types';
 
 const SelectSourcePage: React.FC<HistoryProp> = (props) => {
   const topbarLeftButton: TopbarBackButton = {

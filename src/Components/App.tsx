@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Homepage from './HomePage';
-import SelectSourcePage from './SelectSourcePage';
-import SelectTablePage from './SelectTablePage';
+import Homepage from './Homepage/HomePage';
+import SelectSourcePage from './SelectSourcePage/SelectSourcePage';
+import SelectTablePage from './SelectTablePage/SelectTablePage';
 
 const App: React.FC = () => {
 

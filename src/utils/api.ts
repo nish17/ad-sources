@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DataSourceDto } from './types';
+import { DataSourceDto } from '../types';
 
 const URL = process.env.REACT_APP_URL || '';
 const TOKEN = process.env.REACT_APP_TOKEN || '';
