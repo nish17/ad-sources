@@ -4,6 +4,7 @@ import {
   PageContainer,
   FixedTopBar,
   FixedBottomPominentButton,
+  FixedMiddleBody,
   TopbarBackButton
 } from "./layout-components";
 // import { HistoryProp } from './types';
@@ -23,17 +24,17 @@ const SelectTablePage: React.FC<Props> = ({ history, match }) => {
 
   const NextBtnHandler = () => {
     console.log(match);
-    // setIsClicked(prevstate => !prevstate);
-
   }
 
   return (
     <PageContainer>
       <FixedTopBar title="Select Table" leftButton={topbarLeftButton} />
-      <Typography variant="h5">
-        {match.params.sourceName.split('-').join(' ')} has the following tables ready for import. 
+      <FixedMiddleBody>
+        <Typography variant="h5">
+          {match.params.sourceName.split('-').join(' ').toUpperCase()} has the following tables ready for import.
         Please select the table you would like to import.
         </Typography>
+      </FixedMiddleBody>
       <FixedBottomPominentButton
         title="Next"
         onClick={() => NextBtnHandler()}
