@@ -21,13 +21,14 @@ const useStyles = makeStyles((theme) => ({
 const TableDashBoard: React.FC = () => {
 
   const classes = useStyles();
+
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
-  const [radioBtnData, setRadioBtnData] = useState(['Audience', 'Campaigns', 'Reports']);
   const [searchFilter, setSearchFilter] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
 
+  const radioBtnData: string[] = ['Audience', 'Campaigns', 'Reports'];
   let filteredData: string[] = [];
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,24 +38,20 @@ const TableDashBoard: React.FC = () => {
     setError(false);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!value) {
-      console.log('idonthavethevalue', value);
-      setHelperText('Please select an option.');
-      setError(true);
-    }
-  };
-
   const NextBtnHandler = () => {
     console.log('clicked on next!');
+    if (!value) {
+      setHelperText('Please select an option.');
+      setError(true);
+    }else {
+      console.log(value, ' is selected');
+    }
   }
 
   filteredData = radioBtnData.filter(d => d.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1);
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form>
         <FormControl component="fieldset" error={error} className={classes.formControl}>
           <FormLabel component="legend">
             <TextField id="standard-basic" label="Filter" size="medium" value={searchFilter} onChange={(e) => setSearchFilter(e.target.value)} />
