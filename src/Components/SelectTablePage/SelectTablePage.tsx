@@ -3,13 +3,13 @@ import React from 'react';
 import {
   PageContainer,
   FixedTopBar,
-  FixedBottomPominentButton,
   FixedMiddleBody,
   TopbarBackButton
 } from "../layout-components";
 import { HistoryProp } from '../../types';
+import TableDashBoard from './TableDashboard';
 
-interface Props extends HistoryProp{
+interface Props extends HistoryProp {
   match: any
 }
 const SelectTablePage: React.FC<Props> = ({ history, match }) => {
@@ -19,10 +19,6 @@ const SelectTablePage: React.FC<Props> = ({ history, match }) => {
     onClick: () => { history.goBack(); console.log("Clicked back") }
   };
 
-  const NextBtnHandler = () => {
-    console.log(match);
-  }
-
   return (
     <PageContainer>
       <FixedTopBar title="Select Table" leftButton={topbarLeftButton} />
@@ -31,11 +27,8 @@ const SelectTablePage: React.FC<Props> = ({ history, match }) => {
           {match.params.sourceName.split('-').join(' ').toUpperCase()} has the following tables ready for import.
         Please select the table you would like to import.
         </Typography>
+        <TableDashBoard />
       </FixedMiddleBody>
-      <FixedBottomPominentButton
-        title="Next"
-        onClick={() => NextBtnHandler()}
-      />
     </PageContainer>
   )
 };
