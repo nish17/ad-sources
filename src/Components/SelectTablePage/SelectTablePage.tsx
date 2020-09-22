@@ -7,12 +7,9 @@ import {
   FixedMiddleBody,
   TopbarBackButton
 } from "../layout-components";
-// import { HistoryProp } from './types';
+import { HistoryProp } from '../../types';
 
-import { History } from 'history';
-
-interface Props {
-  history: History,
+interface Props extends HistoryProp{
   match: any
 }
 const SelectTablePage: React.FC<Props> = ({ history, match }) => {

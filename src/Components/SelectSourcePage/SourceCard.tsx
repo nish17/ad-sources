@@ -8,8 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
-import { SourceDataType, clickParams} from '../../types';
-import { History } from 'history';
+import { SourceDataType, clickParams, HistoryProp} from '../../types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,14 +21,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-interface Props {
+interface Props extends HistoryProp {
   apiData: SourceDataType,
   isFav?: Boolean,
   clickedParams: React.Dispatch<React.SetStateAction<clickParams>>
-  history: History
 }
 
-const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams,history }) => {
+const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams, history }) => {
   const classes = useStyles();
 
   const FavButtonHandler = (id: number, fav: boolean, name: string) => {

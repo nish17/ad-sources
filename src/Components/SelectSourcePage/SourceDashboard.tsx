@@ -3,13 +3,11 @@ import { Typography, CircularProgress, TextField, Grid } from '@material-ui/core
 import getData from "../../utils/api";
 
 import SourceCard from './SourceCard';
-import { DataSourceDto, SourceDataType, clickParams } from '../../types';
+import { DataSourceDto, SourceDataType, clickParams,HistoryProp } from '../../types';
 import sheetData from '../../utils/googleSheets';
-import { History } from 'history';
 
-interface Props {
+interface Props extends HistoryProp{
   isClicked: boolean,
-  history: History
 }
 
 const SourceDashboard: React.FC<Props> = ({ isClicked, history }) => {
