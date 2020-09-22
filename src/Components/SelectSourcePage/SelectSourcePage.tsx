@@ -18,19 +18,15 @@ const SelectSourcePage: React.FC<HistoryProp> = (props) => {
     onClick: () => { props.history.goBack(); console.log("Clicked back") }
   };
 
-  const [isClicked, setIsClicked] = useState(false);
-
-
   const TestBtnHandler = () => {
-    setIsClicked(prevstate => !prevstate);
+    console.log('Test/Debug Button clicked!');
   }
-
 
   return (
     <PageContainer>
       <FixedTopBar title="Select source" leftButton={topbarLeftButton} />
       <FixedMiddleBodyWithVerticalScroll>
-        <SourceDashboard isClicked={isClicked} {...props}/>
+        <SourceDashboard {...props}/>
       </FixedMiddleBodyWithVerticalScroll>
       <FixedBottomPominentButton
         title="Test / Debug"

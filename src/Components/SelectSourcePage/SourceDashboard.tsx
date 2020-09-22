@@ -6,11 +6,7 @@ import SourceCard from './SourceCard';
 import { DataSourceDto, SourceDataType, clickParams,HistoryProp } from '../../types';
 import sheetData from '../../utils/googleSheets';
 
-interface Props extends HistoryProp{
-  isClicked: boolean,
-}
-
-const SourceDashboard: React.FC<Props> = ({ isClicked, history }) => {
+const SourceDashboard: React.FC<HistoryProp> = ({ history }) => {
   const [APIData, setAPIData] = useState<SourceDataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -31,7 +27,6 @@ const SourceDashboard: React.FC<Props> = ({ isClicked, history }) => {
   }, []);
 
   useEffect(() => {
-    if (!isClicked) return;
     setIsLoading(true);
     async function fetch() {
       const data = await getData();
@@ -39,7 +34,7 @@ const SourceDashboard: React.FC<Props> = ({ isClicked, history }) => {
       setIsLoading(false);
     }
     fetch();
-  }, [isClicked, changeAPIDataType]);
+  }, [changeAPIDataType]);
 
   useEffect(() => {
     if (clickedParams.id === -1) return;
@@ -58,7 +53,7 @@ const SourceDashboard: React.FC<Props> = ({ isClicked, history }) => {
         Below is the list of the sources you have connected. Please choose the
         data source you would like to import data from.
       </Typography>
-      {isClicked && <TextField
+      <TextField
         id="outlined-full-width"
         label="Search Sources"
         style={{ margin: 8 }}
@@ -71,7 +66,7 @@ const SourceDashboard: React.FC<Props> = ({ isClicked, history }) => {
         variant="outlined"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-      />}
+      />
       {tempAPIData.length > 0 && (
         <div>
           <Grid container direction='row' spacing={2}>
