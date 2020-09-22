@@ -55,11 +55,19 @@ interface BottomButtonProps {
   processing?: boolean;
   onClick: () => void | Promise<void>;
   title: string;
+  disabled?: boolean;
 }
 
 export const FixedBottomPominentButton: React.FunctionComponent<BottomButtonProps> = (
   props
 ) => {
+  const btnStyle = {
+    height: 50, width: "100%", color: '#fff', backgroundColor: '#F86164'
+  }
+  if(props.disabled){
+    btnStyle['color'] = 'black';
+    btnStyle['backgroundColor'] = '#C0C0C0' ;
+  }
   return (
     <Box
       style={{
@@ -80,7 +88,7 @@ export const FixedBottomPominentButton: React.FunctionComponent<BottomButtonProp
       {props.processing || false ? (
         <CircularProgress />
       ) : (
-          <Button style={{ height: 50, width: "100%", color: '#fff', backgroundColor: '#F86164' }} onClick={props.onClick}>
+          <Button style={btnStyle} disabled={props.disabled} onClick={props.onClick}>
             {props.title}
           </Button>
         )}
