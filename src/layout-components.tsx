@@ -29,7 +29,7 @@ export const FixedTopBar: React.FunctionComponent<TopBarProps> = (props) => {
         bottom: "auto",
         left: 0,
         position: "fixed",
-        height: 60
+        height: 60,
       }}
       pt={1}
       display="flex"
@@ -85,6 +85,23 @@ export const FixedBottomPominentButton: React.FunctionComponent<BottomButtonProp
           </Button>
         )}
     </Box>
+  );
+};
+export const FixedMiddleBody: React.FunctionComponent<{}> = (props) => {
+  return (
+    <Box
+      style={{
+        paddingLeft: 15,
+        paddingRight: 15,
+        position:'absolute',
+        top: 70,
+        right: 50,
+        bottom: 65,
+        left: 0,
+      }}
+      display="flex"
+      flexDirection="column"
+    >{props.children}</Box>
   );
 };
 
