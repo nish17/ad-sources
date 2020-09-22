@@ -7,8 +7,9 @@ import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import { Link } from 'react-router-dom';
 
-import { SourceDataType, clickParams, HistoryProp} from '../../types';
+import { SourceDataType, clickParams, HistoryProp } from '../../types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,22 +32,24 @@ const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams, history })
   const classes = useStyles();
 
   const FavButtonHandler = (id: number, fav: boolean, name: string) => {
-    clickedParams({id, fav});
+    clickedParams({ id, fav });
     history.push(`/select-table/${name.toLowerCase().split(' ').join('-')}`)
   }
 
   return (
     <div>
-      <Card variant="outlined">
-        <CardHeader title={apiData.data.name} />
-        <CardMedia className={classes.media} image={apiData.iconUrl} />
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={() => FavButtonHandler(apiData.data.id, !apiData.isMarked, apiData.data.name)} >
-            {isFav ? <FavoriteIcon/> : <FavoriteBorderIcon />}
-          </IconButton>
-        </CardActions>
-      </Card>
+      <Link to={`/select-table/${apiData.data.name.toLowerCase().split(' ').join('-')}`} >
+        <Card variant="outlined">
+          <CardHeader title={apiData.data.name} />
+          <CardMedia className={classes.media} image={apiData.iconUrl} />
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites" onClick={() => FavButtonHandler(apiData.data.id, !apiData.isMarked, apiData.data.name)} >
+              {isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            </IconButton>
+          </CardActions>
+        </Card>
       <br />
+      </Link>
     </div>
   );
 };
