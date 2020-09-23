@@ -33,7 +33,7 @@ const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams, history })
 
   const FavButtonHandler = (id: number, fav: boolean, name: string) => {
     clickedParams({ id, fav });
-    history.push(`/select-table/${name.toLowerCase().split(' ').join('-')}`)
+    // history.push(`/select-table/${name.toLowerCase().split(' ').join('-')}`)
   }
 
   return (
@@ -41,8 +41,8 @@ const SourceCard: React.FC<Props> = ({ apiData, isFav, clickedParams, history })
       <Card variant="outlined">
         <Link to={`/select-table/${apiData.data.name.toLowerCase().split(' ').join('-')}`} >
           <CardHeader title={apiData.data.name} />
+          <CardMedia className={classes.media} image={apiData.iconUrl} />
         </Link>
-        <CardMedia className={classes.media} image={apiData.iconUrl} />
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites" onClick={() => FavButtonHandler(apiData.data.id, !apiData.isMarked, apiData.data.name)} >
             {isFav ? <FavoriteIcon /> : <FavoriteBorderIcon />}
