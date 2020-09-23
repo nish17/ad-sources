@@ -329,5 +329,5 @@ export interface HistoryProp {
 export interface TableDataType {
   name: string,
   subTables: boolean,
-  subTablesData?: TableDataType[]
+  subTablesData: TableDataType[]
 }
