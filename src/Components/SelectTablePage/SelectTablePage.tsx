@@ -12,11 +12,11 @@ import TableDashBoard from './TableDashboard';
 interface Props extends HistoryProp {
   match: any
 }
-const SelectTablePage: React.FC<Props> = ({ history, match }) => {
+const SelectTablePage: React.FC<Props> = (props) => {
 
   const topbarLeftButton: TopbarBackButton = {
     type: "back",
-    onClick: () => { history.goBack(); console.log("Clicked back") }
+    onClick: () => { props.history.goBack(); console.log("Clicked back") }
   };
 
   return (
@@ -24,10 +24,10 @@ const SelectTablePage: React.FC<Props> = ({ history, match }) => {
       <FixedTopBar title="Select Table" leftButton={topbarLeftButton} />
       <FixedMiddleBody>
         <Typography variant="h5">
-          {match.params.sourceName.split('-').join(' ').toUpperCase()} has the following tables ready for import.
+          {props.match.params.sourceName.split('-').join(' ').toUpperCase()} has the following tables ready for import.
         Please select the table you would like to import.
         </Typography>
-        <TableDashBoard />
+        <TableDashBoard {...props} />
       </FixedMiddleBody>
     </PageContainer>
   )
