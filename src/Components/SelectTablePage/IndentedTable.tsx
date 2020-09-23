@@ -30,7 +30,7 @@ const IndentedTable: React.FC<Props> = (props) => {
 
   const topbarLeftButton: TopbarBackButton = {
     type: "back",
-    onClick: () => { props.history.goBack(); console.log("Clicked back") }
+    onClick: () => { props.history.goBack(); }
   };
 
   const NextBtnHandler = () => {
@@ -43,7 +43,6 @@ const IndentedTable: React.FC<Props> = (props) => {
     setError(false);
   }
 
-  console.log('props.match ', props.match.params);
   filteredData = subTableData[props.match.params.tableIndex].subTablesData.filter(d => d.name.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1);
   return (
     <PageContainer>

@@ -14,7 +14,7 @@ import { HistoryProp } from '../../types';
 const SelectSourcePage: React.FC<HistoryProp> = (props) => {
   const topbarLeftButton: TopbarBackButton = {
     type: "back",
-    onClick: () => { props.history.goBack(); console.log("Clicked back") }
+    onClick: () => { props.history.goBack(); }
   };
 
   const TestBtnHandler = () => {

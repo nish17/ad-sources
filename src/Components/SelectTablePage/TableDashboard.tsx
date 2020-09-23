@@ -50,12 +50,10 @@ const TableDashBoard: React.FC<HistoryProp> = ({ history }) => {
   };
 
   const NextBtnHandler = () => {
-    console.log('finalIndex: ', finalIndex, ' selectedTable: ', selectedTable);
     if (!value) {
       setHelperText('Please select an option.');
       setError(true);
     } else if (selectedTable.subTables) {
-      console.log('about to set history: with final index ', selectedTableIndex, finalIndex);
       history.push(`${location.pathname}/${finalIndex}`)
     } else {
       console.log("TODO - Go to SelectColumnsPage")
