@@ -325,3 +325,9 @@ export interface clickParams {
 export interface HistoryProp {
   history: History
 }
+
+export interface TableDataType {
+  name: string,
+  subTables: boolean,
+  subTablesData?: TableDataType[]
+}
