@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from 'react-router-dom';
 
 import {
   PageContainer,
@@ -36,4 +35,4 @@ const SelectSourcePage: React.FC<HistoryProp> = (props) => {
   );
 };
 
-export default withRouter(SelectSourcePage);
+export default SelectSourcePage;
