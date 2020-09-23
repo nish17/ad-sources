@@ -10,7 +10,7 @@ import { TextField } from '@material-ui/core';
 import { FixedBottomPominentButton } from '../layout-components';
 import { TableDataType, HistoryProp } from '../../types';
 import data from '../../utils/TableData';
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TableDashBoard: React.FC<HistoryProp> = ({history}) => {
+const TableDashBoard: React.FC<HistoryProp> = ({ history }) => {
 
   const classes = useStyles();
 
@@ -31,31 +31,40 @@ const TableDashBoard: React.FC<HistoryProp> = ({history}) => {
   const [searchFilter, setSearchFilter] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [selectedTable, setSelectedTable] = useState<TableDataType>({ name: 'null', subTables: false });
-  let selectedTableIndex: number = -1;
+  // let selectedTableIndex: number = -1;
+  const [selectedTableIndex, setSelectedTableIndex] = useState(-1);
   const radioBtnData: TableDataType[] = data;
   let filteredData: TableDataType[] = [];
+  let finalIndex: number = selectedTableIndex;
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue =(event.target as HTMLInputElement).value;
+    const newValue = (event.target as HTMLInputElement).value;
     setValue(newValue);
-    selectedTableIndex = radioBtnData.findIndex(data => newValue === data.name);
-    setSelectedTable(radioBtnData[selectedTableIndex]);
+    // console.log('newValue ', newValue);
+    const index = radioBtnData.findIndex(data => newValue === data.name);
+    // console.log('index ', index);
+    finalIndex = index;
+    setSelectedTableIndex(index);
+    // console.log('selectedTableIndex ', selectedTableIndex, 'finalIndex ', finalIndex);
+    setSelectedTable(radioBtnData[finalIndex]);
     setIsDisabled(false);
     setHelperText(' ');
     setError(false);
   };
 
   const NextBtnHandler = () => {
+    console.log('finalIndex: ', finalIndex, ' selectedTable: ', selectedTable);
     if (!value) {
       setHelperText('Please select an option.');
       setError(true);
     } else if (selectedTable.subTables) {
-      history.push(`${location.pathname}/${selectedTableIndex}`)
+      console.log('about to set history: with final index ', selectedTableIndex, finalIndex);
+      history.push(`${location.pathname}/${finalIndex}`)
     } else {
       console.log("TODO - Go to SelectColumnsPage")
     }
   }
-  const location  = useLocation();
+  const location = useLocation();
   filteredData = radioBtnData.filter(d => d.name.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1);
   return (
     <div>

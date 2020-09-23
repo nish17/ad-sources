@@ -12,7 +12,7 @@ const App: React.FC = () => {
       <Switch>
         <Route path='/' exact component={Homepage}/>
         <Route path='/select-source-page' component={SelectSourcePage} />
-        <Route path='/select-table/:sourceName' component={SelectTablePage} />
+        <Route path='/select-table/:sourceName' exact component={SelectTablePage} />
         <Route path='/select-table/:sourceName/:tableIndex' component={IndentedTable} />
       </Switch>
     </Router>

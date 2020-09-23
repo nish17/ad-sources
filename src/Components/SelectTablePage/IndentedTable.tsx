@@ -20,14 +20,15 @@ const IndentedTable: React.FC<Props> = (props) => {
     type: "back",
     onClick: () => { props.history.goBack(); console.log("Clicked back") }
   };
-  console.log(props.match);
+  console.log('props.match ', props.match.params);
   return (
     <PageContainer>
       <FixedTopBar title="Select Table" leftButton={topbarLeftButton} />
       <FixedMiddleBody>
         <Typography variant="h5">
-          {props.match.params.sourceName.split('-').join(' ').toUpperCase()} has the following tables ready for import.
-        Please select the table you would like to import.124235234645634
+          {/* {props.match.params} */}
+          {props.match.params.sourceName.split('-').join(' ').toUpperCase()} has the following sub-tables ready for import.
+        Please select the table you would like to import.
         </Typography>
         {/* <TableDashBoard {...props} /> */}
       </FixedMiddleBody>
