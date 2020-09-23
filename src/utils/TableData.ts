@@ -6,25 +6,30 @@ const TableData: TableDataType[] = [
     subTablesData: [
       { 
         name: 'Member #1', 
-        subTables: false 
+        subTables: false,
+        subTablesData: []
       }, 
       { 
         name: 'Member #2', 
-        subTables: false 
+        subTables: false,
+        subTablesData: []
       }
     ] 
   }, 
   { 
     name: 'Audience', 
-    subTables: false 
+    subTables: false,
+    subTablesData: []
   }, 
   { 
     name: 'Campaigns', 
-    subTables: false 
+    subTables: false,
+    subTablesData: []
   }, 
   { 
     name: 'Reports', 
-    subTables: false 
+    subTables: false,
+    subTablesData: []
   }
 ];
 
