@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
-import { TextField } from '@material-ui/core';
+import {
+  TextField, FormControlLabel,
+  FormControl,
+  FormHelperText,
+  FormLabel, Radio,
+  RadioGroup
+} from '@material-ui/core';
 import { FixedBottomPominentButton } from '../layout-components';
 import { TableDataType, HistoryProp } from '../../types';
 import data from '../../utils/TableData';
@@ -30,7 +30,7 @@ const TableDashBoard: React.FC<HistoryProp> = ({ history }) => {
   const [helperText, setHelperText] = useState('');
   const [searchFilter, setSearchFilter] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
-  const [selectedTable, setSelectedTable] = useState<TableDataType>({ name: 'null', subTables: false });
+  const [selectedTable, setSelectedTable] = useState<TableDataType>({ name: 'null', subTables: false, subTablesData: [] });
   // let selectedTableIndex: number = -1;
   const [selectedTableIndex, setSelectedTableIndex] = useState(-1);
   const radioBtnData: TableDataType[] = data;
@@ -40,12 +40,9 @@ const TableDashBoard: React.FC<HistoryProp> = ({ history }) => {
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = (event.target as HTMLInputElement).value;
     setValue(newValue);
-    // console.log('newValue ', newValue);
     const index = radioBtnData.findIndex(data => newValue === data.name);
-    // console.log('index ', index);
     finalIndex = index;
     setSelectedTableIndex(index);
-    // console.log('selectedTableIndex ', selectedTableIndex, 'finalIndex ', finalIndex);
     setSelectedTable(radioBtnData[finalIndex]);
     setIsDisabled(false);
     setHelperText(' ');
