@@ -46,7 +46,7 @@ const IndentedTable: React.FC<Props> = (props) => {
   filteredData = subTableData[props.match.params.tableIndex].subTablesData.filter(d => d.name.toLowerCase().indexOf(searchFilter.toLowerCase()) !== -1);
   return (
     <PageContainer>
-      <FixedTopBar title="Select Table" leftButton={topbarLeftButton} />
+      <FixedTopBar title="Select Sub-Table" leftButton={topbarLeftButton} />
       <FixedMiddleBody>
         <Typography variant="h5">
           {props.match.params.sourceName.split('-').join(' ').toUpperCase()} has the following sub-tables ready for import.
