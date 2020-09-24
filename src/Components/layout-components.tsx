@@ -24,6 +24,7 @@ export const FixedTopBar: React.FunctionComponent<TopBarProps> = (props) => {
       style={{
         paddingLeft: 15,
         paddingRight: 15,
+        marginTop: 20,
         top: 0,
         right: 0,
         bottom: "auto",
@@ -102,9 +103,9 @@ export const FixedMiddleBody: React.FunctionComponent<{}> = (props) => {
         paddingLeft: 15,
         paddingRight: 15,
         position: 'absolute',
-        top: 70,
+        top: 80,
         right: 50,
-        bottom: 65,
+        bottom: 15,
         left: 0,
       }}
       display="flex"

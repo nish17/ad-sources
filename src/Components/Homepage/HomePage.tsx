@@ -1,9 +1,9 @@
 import React from 'react'
-import Button from '@material-ui/core/Button';
+import {Button, Typography} from '@material-ui/core';
 import { PageContainer, FixedMiddleBody, FixedTopBar } from "../layout-components";
 import { HistoryProp } from '../../types';
 
-
+// import '../../s'
 
 const Homepage: React.FC<HistoryProp> = ({ history }) => {
 
@@ -15,11 +15,11 @@ const Homepage: React.FC<HistoryProp> = ({ history }) => {
     <PageContainer>
       <FixedTopBar title="What would you like to do today?" />
       <FixedMiddleBody>
-        Welcome to Airboxr. Let's start with the task you want to accomplish today
-        <Button variant="outlined" color="primary" onClick={btnClickHandler}>
+        <Typography style={{marginTop: '30px', fontFamily:'barlow'}} variant="h3" > Welcome to Airboxr. Let's start with the task you want to accomplish today</Typography>
+        <Button style={{marginTop: '50px'}} variant="outlined" color="primary" onClick={btnClickHandler}>
           Import Data
-      </Button><br />
-        <Button variant="outlined" color="secondary" onClick={btnClickHandler}>
+      </Button>
+        <Button style={{marginTop: '25px'}} variant="outlined" color="secondary" onClick={btnClickHandler}>
           Lookup Data
       </Button>
       </FixedMiddleBody>
